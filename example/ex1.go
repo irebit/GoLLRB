@@ -5,22 +5,28 @@ import (
 	"github.com/petar/GoLLRB/llrb"
 )
 
-func lessInt(a, b interface{}) bool { return a.(int) < b.(int) }
+func showItem(item llrb.Item) bool {
+	fmt.Print(item)
+	return true
+}
 
 func main() {
-	tree := llrb.New(lessInt)
-	tree.ReplaceOrInsert(1)
-	tree.ReplaceOrInsert(2)
-	tree.ReplaceOrInsert(3)
-	tree.ReplaceOrInsert(4)
-	tree.DeleteMin()
-	tree.Delete(4)
-	c := tree.IterAscend()
-	for {
-		u := <-c
-		if u == nil {
-			break
-		}
-		fmt.Printf("%d\n", int(u.(int)))
-	}
+	tree := llrb.New()
+	tree.ReplaceOrInsert(llrb.Int(0))
+	tree.ReplaceOrInsert(llrb.Int(1))
+	tree.ReplaceOrInsert(llrb.Int(2))
+	tree.ReplaceOrInsert(llrb.Int(3))
+	tree.ReplaceOrInsert(llrb.Int(4))
+	tree.ReplaceOrInsert(llrb.Int(5))
+	tree.ReplaceOrInsert(llrb.Int(6))
+	tree.ReplaceOrInsert(llrb.Int(7))
+	tree.ReplaceOrInsert(llrb.Int(8))
+	tree.ReplaceOrInsert(llrb.Int(9))
+	max := tree.Max()
+	fmt.Print(max)
+	min := tree.DeleteMin()
+	fmt.Print(min)
+	item := tree.Delete(llrb.Int(4))
+	fmt.Print(item)
+	tree.AscendRange(llrb.Int(1), llrb.Int(10), showItem)
 }
